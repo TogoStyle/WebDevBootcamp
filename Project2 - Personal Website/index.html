@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en" data-bs-theme="auto">
+  <head><script src="../assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ToniVR</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/heroes/">        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/heroes/hero-1/assets/css/hero-1.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/jumbotron/">
+    <style>
+
+
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+    }
+      
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+
+      .bsb-hero-1{
+        background-image: url("./Assets/Images/background.jpeg");
+        padding-top: 250px;
+        padding-bottom: 250px;
+      }
+
+      .custom-justified-center {
+        text-align: justify !important;
+    }
+    .custom-text-center {
+        text-align: center !important;
+    }
+    .custom-px-10 {
+        padding-left: 4rem !important;
+        padding-right: 4rem !important;
+    }
+
+    @media (min-width: 992px) {
+        .custom-px-6 {
+            padding-left:15rem !important;
+            padding-right: 15rem !important;
+        }
+
+        .skill-item{
+          list-style: none;
+          margin-right: 20px !important;
+        }
+    }
+    
+    #desc {
+        text-align: justify;
+        margin-top: 50px; /* Adjust the padding value as needed */
+    }
+
+    @media (max-width: 991.98px) {
+    .float-md-left {
+        float: left !important;
+        margin-right: 20px;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .skill-list {
+        display: flex;
+        padding: 0;
+    }
+
+    .skill-item {
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin-right: 20px !important; /* Margen entre elementos */
+        margin-bottom: 20px;
+        
+    }
+
+    .skill-item:last-child {
+        margin-right: 0; /* Elimina el margen derecho del último elemento */
+    }
+   
+}
+.skill-item img {
+        transition: transform 0.3s ease;
+        width: 100%;
+    }
+
+    .skill-item:hover img {
+      transform:rotate(1turn);
+    }
+
+
+    footer {
+    background-color: lightgrey;
+    padding: 20px 0;
+}
+
+.copyright {
+    margin-bottom: 20px;
+}
+
+.buttons .btn {
+    margin: 0 5px;
+    max-width: 200px; /* Ancho máximo para los botones */
+    background-color: transparent; /* Establece el fondo transparente */
+    border: 1px solid #333; /* Añade un borde de color gris oscuro */
+    color: #333; /* Establece el color del texto a gris oscuro */
+}
+
+footer p, footer a {
+    color: #333; /* Color gris oscuro para el texto */
+    text-decoration: none;
+}
+
+.buttons .btn:hover {
+    background-color: #8a8a8a; /* Cambia el color de fondo al pasar el ratón */
+}
+    
+   
+    </style>
+
+    
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<main>
+
+    <section class="bsb-hero-1 bsb-hover-pull">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-11 col-lg-9 col-xl-7 col-xxl-6 text-center text-white">
+              <h2 style="font-size: 20px;">I'm Toni</h2>
+              <p style="font-size: 40px;">A <u>pro</u>grammer </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+<section class="jumbotron text-center bg-white"> 
+    <div class="container-fluid custom-px-6"> 
+        <div class="p-5 mb-4 rounded-3" style="background-color: white;"> 
+            <div class="container py-5">
+                <img src="./Assets/Images/IMG_0627.jpg" alt="me" style="width: 150px; height: 150px;" class="rounded-circle">
+                <h1 class="display-5 fw-bold">Hello</h1>
+                <p style="margin-bottom: 50px;" class="custom-justified">Nice to meet you</p>
+                <p class="fs-4 text-center custom-justified">I’m a junior web and software developer. I am excited to embark on my journey in the tech industry, contribute to meaningful projects, and grow both personally and professionally.</p>
+                <p id="desc" class="text-center custom-justified">I love coffee, good music, coding, designing, and... also tattooing</p>    
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#222831;" />
+      <stop offset="50%" style="stop-color:#31363F;" />
+      <stop offset="100%" style="stop-color:#8624ff;" />
+    </linearGradient>
+    <path fill="url(#gradient)" d="M0,192L80,197.3C160,203,320,213,480,197.3C640,181,800,139,960,138.7C1120,139,1280,181,1360,202.7L1440,224L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path>
+  </svg> -->
+  <section class="bg-light pt-2 pb-2" style="background-color: white !important; display: flex; justify-content: center; align-items: center; margin-top: -100px; margin-bottom: -60px;">
+    <img src="./Assets/Images/arrow.gif" alt="arrow" width="100px" height="100px" style="transform: rotate(130deg);" >
+    
+</section>
+
+
+<section class="jumbotron text-center bg-white">
+  <div class="container py-5">
+      <h1 class="display-5 fw-bold" style="margin-top: 50px;">My Skills</h1>
+
+      <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center justify-content-center">
+          <div class="media">
+              <img src="./Assets/Images/200w (1).gif" alt="twbs" width="100" height="100" class="rounded-circle align-self-start mr-3 float-md-left">
+              <div class="media-body text-left">
+                  <h6 class="mb-0" style="margin-top: 20px;">Development and Designing</h6>
+                  <p class="mb-0 opacity-75" style="margin-top: 10px;">I started learning to code when I was 20 years old because I wanted to make my own video games.<br>Over time, I have gained a wealth of experience designing and developing mobile and web applications.</p>
+              </div>   
+              
+            <ul class="skill-list skill-list d-flex flex-wrap justify-content-center" style="margin-top: 20px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5"/>
+              </svg>
+              <li class="skill-item">
+                
+                  <img src="./Assets/Images/HTML5_logo_and_wordmark.svg.png" alt="Skill 1" width="25px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/CSS3_logo_and_wordmark.svg.png" alt="Skill 1" width="20px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/boot.jpeg" alt="Skill 1" width="25px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/JavaScript-logo.png" alt="Skill 1" width="25px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/react-1-logo-png-transparent.png" alt="Skill 1" width="25px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/jquery-original-wordmark-icon-485x512-7kn0h2yt.png" alt="Skill 1" width="25px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/nodejs.jpg" alt="Skill 1" width="30px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/express-js.png" alt="Skill 1" width="30px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/git.png" alt="Skill 1" width="30px" height="30px">
+              </li>
+
+            </ul> 
+
+            <ul class="skill-list skill-list d-flex flex-wrap justify-content-center" style="margin-top: 10px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5"/>
+              </svg>
+              <li class="skill-item">
+                
+                <img src="./Assets/Images/as.png" alt="Skill 1" width="25px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/java-logo-1.png" alt="Skill 1" width="40px" height="40px" style="margin-left: -10px;">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/c-sharp-c-logo-02F17714BA-seeklogo.com.png" alt="Skill 1" width="30px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/Official_unity_logo.png" alt="Skill 1" width="50px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/1200px-Spring_Framework_Logo_2018.svg.png" alt="Skill 1" width="50px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/postgresql.png" alt="Skill 1" width="30px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/api.png" alt="Skill 1" width="30px" height="30px">
+              </li>
+              <li class="skill-item">
+                <img src="./Assets/Images/Adobe_Photoshop_CC_icon.svg.png" alt="Skill 1" width="30px" height="30px">
+              </li>
+            </ul>
+          </div>
+          
+      </div>
+      <hr class="hr hr-blurry" />
+      <div class="media" style="margin-top: 50px;">
+        <img src="./Assets/Images/graph.png" alt="twbs" width="100" height="100" class="align-self-start mr-3 float-md-left">
+        <div class="media-body text-left">
+            <h6 class="mb-0" style="margin-top: 20px;">Personal Development</h6>
+            <p class="mb-0 opacity-75" style="margin-top: 10px; ">Professional & Highly Motivated <br> Eager to Learn and Work & Good Communicating Skills<br> Strong Problem-Solving and Critical Thinking Skills <br> </p>
+        </div>  
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="jumbotron text-center bg-white">
+  <div class="container py-5">
+    <h1 class="display-5 fw-bold" style="margin-top: 50px;">Get In Touch</h1>
+    <p>We Can Code Together and Have a Good Time Coding Together... What Do You Say?</p>
+    <a href="mailto:tvr9869@gmail.com" class="btn btn-secondary btn-lg" style="margin-top: 80px;">Contact Me</a>
+  </div>
+</section>
+
+
+  </main>
+<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+
+    <footer>
+      <div class="copyright text-center">
+          <p>&copy; 2024 Toni VR</p>
+      </div>
+      <div class="buttons text-center">
+          <a href="https://www.linkedin.com/in/tonivieirarubio-informatico/" target="_blank" class="btn btn-primary" style="margin-bottom: 10px;">LinkedIn</a>
+          <a href="./Assets/Documents/ToniVR-CV.pdf" download class="btn btn-primary" style="margin-bottom: 10px;">Download CV</a>
+          <a href="https://github.com/TogoStyle" target="_blank" class="btn btn-primary "style="margin-bottom: 10px;">GitHub</a>
+      </div>
+  </footer>
+  
+    
+</html>
