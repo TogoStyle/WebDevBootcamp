@@ -38,7 +38,7 @@ app.get("/random/:type", (req, res) => {
 
 
 
-try{
+
 //3. GET books by filtering on the book author
 app.get("/:type/filter/", (req, res)=> {
   const type = req.params.type;
@@ -61,7 +61,7 @@ if (!resource) {
 res.json(resource);
 
 })
-} catch{
+
   //2. GET a specific book or quote
 app.get("/:type/:id", (req, res)=> {
   const type = req.params.type;
@@ -84,7 +84,7 @@ if (!resource) {
 res.json(resource);
 
 })
-}
+
 
 //4. POST a new joke
 
