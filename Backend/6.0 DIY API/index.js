@@ -36,7 +36,33 @@ app.get("/random/:type", (req, res) => {
   res.json(resource);
 });
 
-//2. GET a specific book or quote
+
+
+try{
+//3. GET books by filtering on the book author
+app.get("/:type/filter/", (req, res)=> {
+  const type = req.params.type;
+  const author = req.query.author;
+  let resource;
+
+  if (type === 'books') {
+    resource = books.filter((book) => book.author === author);
+} else if (type === 'quotes') {
+    resource = quotes.filter((quote) => quote.author === author);
+} else {
+    return res.status(400).json({ error: 'Por favor, especifica un tipo válido: "book" o "quote"' });
+}
+
+// Verificamos si se encontró el recurso
+if (!resource) {
+  return res.status(404).json({ error: `No se encontró ${type.slice(0, -1)} con el Author ${author}` });
+}
+
+res.json(resource);
+
+})
+} catch{
+  //2. GET a specific book or quote
 app.get("/:type/:id", (req, res)=> {
   const type = req.params.type;
   const id = parseInt(req.params.id);
@@ -58,8 +84,7 @@ if (!resource) {
 res.json(resource);
 
 })
-
-//3. GET a jokes by filtering on the joke type
+}
 
 //4. POST a new joke
 
@@ -76,106 +101,106 @@ app.listen(port, () => {
 });
 
 const books = [
-  { id: 1, bookName: 'Meditations', bookAuthor: 'Marcus Aurelius' },
-  { id: 2, bookName: 'Letters to Lucilius', bookAuthor: 'Seneca' },
-  { id: 3, bookName: 'Discourses', bookAuthor: 'Epictetus' },
-  { id: 4, bookName: 'The Art of Happiness', bookAuthor: 'Dalai Lama' },
-  { id: 5, bookName: 'Discourses of Epictetus', bookAuthor: 'Arrian' },
-  { id: 6, bookName: 'Enchiridion', bookAuthor: 'Epictetus' },
-  { id: 7, bookName: 'On the Happy Life', bookAuthor: 'Seneca' },
-  { id: 8, bookName: 'On the Nature of Things', bookAuthor: 'Seneca' },
-  { id: 9, bookName: 'The Manual', bookAuthor: 'Epictetus' },
-  { id: 10, bookName: 'The Art of Living', bookAuthor: 'Epictetus' },
-  { id: 11, bookName: 'The Short Happy Life of Seneca', bookAuthor: 'Paula Canto' },
-  { id: 12, bookName: 'Stoic Writings', bookAuthor: 'Rufus' },
-  { id: 13, bookName: 'On the Shortness of Life', bookAuthor: 'Seneca' },
-  { id: 14, bookName: 'Happiness, Death, and Other Essays', bookAuthor: 'Seneca' },
-  { id: 15, bookName: 'On the Firmness of the Wise', bookAuthor: 'Seneca' },
-  { id: 16, bookName: 'Seneca to Go Beyond the Journey', bookAuthor: 'Marina Garcés' },
-  { id: 17, bookName: 'Epictetus for a Better Life', bookAuthor: 'Daniel Utrilla' },
-  { id: 18, bookName: 'In Search of Happiness', bookAuthor: 'Bettany Hughes' },
-  { id: 19, bookName: 'Stoic Wisdom', bookAuthor: 'Pierre Hadot' },
-  { id: 20, bookName: 'The Art of Living', bookAuthor: 'Epictetus' },
-  { id: 21, bookName: 'The Obstacle Is the Way', bookAuthor: 'Ryan Holiday' },
-  { id: 22, bookName: 'Ego Is the Enemy', bookAuthor: 'Ryan Holiday' },
-  { id: 23, bookName: 'Stillness Is the Key', bookAuthor: 'Ryan Holiday' },
-  { id: 24, bookName: 'The Daily Stoic', bookAuthor: 'Ryan Holiday' },
-  { id: 25, bookName: 'How to Think Like a Roman Emperor', bookAuthor: 'Donald Robertson' },
-  { id: 26, bookName: 'Stoicism and the Art of Happiness', bookAuthor: 'Donald Robertson' },
-  { id: 27, bookName: 'The Stoic Challenge', bookAuthor: 'William B. Irvine' },
-  { id: 28, bookName: 'A Guide to the Good Life', bookAuthor: 'William B. Irvine' },
-  { id: 29, bookName: 'Stoicism: A Very Short Introduction', bookAuthor: 'Brad Inwood' },
-  { id: 30, bookName: 'The Stoic Heart', bookAuthor: 'Beverley Sedlick' },
-  { id: 31, bookName: 'Stoicism: The Ultimate Guide', bookAuthor: 'Ryan James' },
-  { id: 32, bookName: 'How to Be a Stoic', bookAuthor: 'Massimo Pigliucci' },
-  { id: 33, bookName: 'The Practicing Stoic', bookAuthor: 'Ward Farnsworth' },
-  { id: 34, bookName: 'Stoicism: What Can Stoicism Teach You', bookAuthor: 'Ryan James' },
-  { id: 35, bookName: 'The Stoic: 9 Principles', bookAuthor: 'John Collins' },
-  { id: 36, bookName: 'The Little Book of Stoicism', bookAuthor: 'Jonas Salzgeber' },
-  { id: 37, bookName: 'Stoicism: A Stoic\'s Journey', bookAuthor: 'Garry Hudson' },
-  { id: 38, bookName: 'The Stoic Path', bookAuthor: 'William Ferraiolo' },
-  { id: 39, bookName: 'Stoicism: Unlock the Secrets', bookAuthor: 'Ryan James' },
-  { id: 40, bookName: 'The Stoic Challenge', bookAuthor: 'William B. Irvine' },
-  { id: 41, bookName: 'The Stoic Journal', bookAuthor: 'Chuck Chakrapani' },
-  { id: 42, bookName: 'Stoicism: Understanding and Practicing', bookAuthor: 'Kyle Faber' },
-  { id: 43, bookName: 'The Stoic Warrior', bookAuthor: 'Charles River Editors' },
-  { id: 44, bookName: 'The Meditations of Marcus Aurelius', bookAuthor: 'Marcus Aurelius' },
-  { id: 45, bookName: 'Stoicism and the Art of Happiness', bookAuthor: 'Donald Robertson' },
-  { id: 46, bookName: 'The Daily Stoic Journal', bookAuthor: 'Ryan Holiday and Stephen Hanselman' },
-  { id: 47, bookName: 'Stoic Six Pack 2', bookAuthor: 'Lucius Annaeus Seneca, Epictetus, Musonius Rufus, Hierocles, Marcus Aurelius' },
-  { id: 48, bookName: 'The Complete Works of Epictetus', bookAuthor: 'Epictetus' },
-  { id: 49, bookName: 'Letters from a Stoic', bookAuthor: 'Lucius Annaeus Seneca' },
-  { id: 50, bookName: 'The Discourses of Epictetus', bookAuthor: 'Epictetus' },
-  { id: 51, bookName: 'The Enchiridion of Epictetus', bookAuthor: 'Epictetus' },
-  { id: 52, bookName: 'Stoicism and the Art of Happiness', bookAuthor: 'Donald Robertson' },
-  { id: 53, bookName: 'The Stoic Philosophy of Marcus Aurelius', bookAuthor: 'Marcus Aurelius' },
-  { id: 54, bookName: 'The Stoic Challenge', bookAuthor: 'William B. Irvine' },
-  { id: 55, bookName: 'The Obstacle Is the Way', bookAuthor: 'Ryan Holiday' },
-  { id: 56, bookName: 'A Guide to the Good Life', bookAuthor: 'William B. Irvine' },
-  { id: 57, bookName: 'The Daily Stoic', bookAuthor: 'Ryan Holiday' },
-  { id: 58, bookName: 'The Practicing Stoic', bookAuthor: 'Ward Farnsworth' },
-  { id: 59, bookName: 'Stoicism', bookAuthor: 'Ryan James' },
-  { id: 60, bookName: 'Stillness Is the Key', bookAuthor: 'Ryan Holiday' },
-  { id: 61, bookName: 'Ego Is the Enemy', bookAuthor: 'Ryan Holiday' },
-  { id: 62, bookName: 'How to Think Like a Roman Emperor', bookAuthor: 'Donald Robertson' },
-  { id: 63, bookName: 'The Stoic Heart', bookAuthor: 'Beverley Sedlick' },
-  { id: 64, bookName: 'The Little Book of Stoicism', bookAuthor: 'Jonas Salzgeber' },
-  { id: 65, bookName: 'Stoicism', bookAuthor: 'Brad Inwood' },
-  { id: 66, bookName: 'The Stoic Life', bookAuthor: 'Tad Brennan' },
-  { id: 67, bookName: 'Stoicism', bookAuthor: 'Sharon Nash' },
-  { id: 68, bookName: 'The Daily Stoic Journal', bookAuthor: 'Ryan Holiday and Stephen Hanselman' },
-  { id: 69, bookName: 'Stoicism', bookAuthor: 'Erik Smith' },
-  { id: 70, bookName: 'Stoicism', bookAuthor: 'Jimmie Powell' },
-  { id: 71, bookName: 'Stoicism', bookAuthor: 'Jordan White' },
-  { id: 72, bookName: 'Stoicism', bookAuthor: 'Ryan James' },
-  { id: 73, bookName: 'Stoicism', bookAuthor: 'Gregory Moto' },
-  { id: 74, bookName: 'Stoicism', bookAuthor: 'Russell Davis' },
-  { id: 75, bookName: 'The Stoic Challenge', bookAuthor: 'Stephen Hanselman' },
-  { id: 76, bookName: 'Stoicism', bookAuthor: 'Brian Sandler' },
-  { id: 77, bookName: 'Stoicism', bookAuthor: 'A.C. Drexel' },
-  { id: 78, bookName: 'Stoicism', bookAuthor: 'G. S. Marone' },
-  { id: 79, bookName: 'Stoicism', bookAuthor: 'George Tanner' },
-  { id: 80, bookName: 'Stoicism', bookAuthor: 'John Nash' },
-  { id: 81, bookName: 'Stoicism', bookAuthor: 'Bryan Patton' },
-  { id: 82, bookName: 'Stoicism', bookAuthor: 'Kevin Garnett' },
-  { id: 83, bookName: 'Stoicism', bookAuthor: 'Max Freeman' },
-  { id: 84, bookName: 'Stoicism', bookAuthor: 'Chris Tansy' },
-  { id: 85, bookName: 'Stoicism', bookAuthor: 'Mark T. M. Pillinger' },
-  { id: 86, bookName: 'Stoicism', bookAuthor: 'Steve Ewing' },
-  { id: 87, bookName: 'Stoicism', bookAuthor: 'Dylan Campbell' },
-  { id: 88, bookName: 'Stoicism', bookAuthor: 'Aria P' },
-  { id: 89, bookName: 'Stoicism', bookAuthor: 'Russell Davis' },
-  { id: 90, bookName: 'Stoicism', bookAuthor: 'Aria P' },
-  { id: 91, bookName: 'Stoicism', bookAuthor: 'Kyle Faber' },
-  { id: 92, bookName: 'Stoicism', bookAuthor: 'Tom Miles' },
-  { id: 93, bookName: 'Stoicism', bookAuthor: 'Robert Leary' },
-  { id: 94, bookName: 'Stoicism', bookAuthor: 'Russell Davis' },
-  { id: 95, bookName: 'Stoicism', bookAuthor: 'Aria P' },
-  { id: 96, bookName: 'Stoicism', bookAuthor: 'Kyle Faber' },
-  { id: 97, bookName: 'Stoicism', bookAuthor: 'Tom Miles' },
-  { id: 98, bookName: 'Stoicism', bookAuthor: 'Robert Leary' },
-  { id: 99, bookName: 'Stoicism', bookAuthor: 'Aria P' },
-  { id: 100, bookName: 'Stoicism', bookAuthor: 'Kyle Faber' }
+  { id: 1, bookName: 'Meditations', author: 'Marcus Aurelius' },
+  { id: 2, bookName: 'Letters to Lucilius', author: 'Seneca' },
+  { id: 3, bookName: 'Discourses', author: 'Epictetus' },
+  { id: 4, bookName: 'The Art of Happiness', author: 'Dalai Lama' },
+  { id: 5, bookName: 'Discourses of Epictetus', author: 'Arrian' },
+  { id: 6, bookName: 'Enchiridion', author: 'Epictetus' },
+  { id: 7, bookName: 'On the Happy Life', author: 'Seneca' },
+  { id: 8, bookName: 'On the Nature of Things', author: 'Seneca' },
+  { id: 9, bookName: 'The Manual', author: 'Epictetus' },
+  { id: 10, bookName: 'The Art of Living', author: 'Epictetus' },
+  { id: 11, bookName: 'The Short Happy Life of Seneca', author: 'Paula Canto' },
+  { id: 12, bookName: 'Stoic Writings', author: 'Rufus' },
+  { id: 13, bookName: 'On the Shortness of Life', author: 'Seneca' },
+  { id: 14, bookName: 'Happiness, Death, and Other Essays', author: 'Seneca' },
+  { id: 15, bookName: 'On the Firmness of the Wise', author: 'Seneca' },
+  { id: 16, bookName: 'Seneca to Go Beyond the Journey', author: 'Marina Garcés' },
+  { id: 17, bookName: 'Epictetus for a Better Life', author: 'Daniel Utrilla' },
+  { id: 18, bookName: 'In Search of Happiness', author: 'Bettany Hughes' },
+  { id: 19, bookName: 'Stoic Wisdom', author: 'Pierre Hadot' },
+  { id: 20, bookName: 'The Art of Living', author: 'Epictetus' },
+  { id: 21, bookName: 'The Obstacle Is the Way', author: 'Ryan Holiday' },
+  { id: 22, bookName: 'Ego Is the Enemy', author: 'Ryan Holiday' },
+  { id: 23, bookName: 'Stillness Is the Key', author: 'Ryan Holiday' },
+  { id: 24, bookName: 'The Daily Stoic', author: 'Ryan Holiday' },
+  { id: 25, bookName: 'How to Think Like a Roman Emperor', author: 'Donald Robertson' },
+  { id: 26, bookName: 'Stoicism and the Art of Happiness', author: 'Donald Robertson' },
+  { id: 27, bookName: 'The Stoic Challenge', author: 'William B. Irvine' },
+  { id: 28, bookName: 'A Guide to the Good Life', author: 'William B. Irvine' },
+  { id: 29, bookName: 'Stoicism: A Very Short Introduction', author: 'Brad Inwood' },
+  { id: 30, bookName: 'The Stoic Heart', author: 'Beverley Sedlick' },
+  { id: 31, bookName: 'Stoicism: The Ultimate Guide', author: 'Ryan James' },
+  { id: 32, bookName: 'How to Be a Stoic', author: 'Massimo Pigliucci' },
+  { id: 33, bookName: 'The Practicing Stoic', author: 'Ward Farnsworth' },
+  { id: 34, bookName: 'Stoicism: What Can Stoicism Teach You', author: 'Ryan James' },
+  { id: 35, bookName: 'The Stoic: 9 Principles', author: 'John Collins' },
+  { id: 36, bookName: 'The Little Book of Stoicism', author: 'Jonas Salzgeber' },
+  { id: 37, bookName: 'Stoicism: A Stoic\'s Journey', author: 'Garry Hudson' },
+  { id: 38, bookName: 'The Stoic Path', author: 'William Ferraiolo' },
+  { id: 39, bookName: 'Stoicism: Unlock the Secrets', author: 'Ryan James' },
+  { id: 40, bookName: 'The Stoic Challenge', author: 'William B. Irvine' },
+  { id: 41, bookName: 'The Stoic Journal', author: 'Chuck Chakrapani' },
+  { id: 42, bookName: 'Stoicism: Understanding and Practicing', author: 'Kyle Faber' },
+  { id: 43, bookName: 'The Stoic Warrior', author: 'Charles River Editors' },
+  { id: 44, bookName: 'The Meditations of Marcus Aurelius', author: 'Marcus Aurelius' },
+  { id: 45, bookName: 'Stoicism and the Art of Happiness', author: 'Donald Robertson' },
+  { id: 46, bookName: 'The Daily Stoic Journal', author: 'Ryan Holiday and Stephen Hanselman' },
+  { id: 47, bookName: 'Stoic Six Pack 2', author: 'Lucius Annaeus Seneca, Epictetus, Musonius Rufus, Hierocles, Marcus Aurelius' },
+  { id: 48, bookName: 'The Complete Works of Epictetus', author: 'Epictetus' },
+  { id: 49, bookName: 'Letters from a Stoic', author: 'Lucius Annaeus Seneca' },
+  { id: 50, bookName: 'The Discourses of Epictetus', author: 'Epictetus' },
+  { id: 51, bookName: 'The Enchiridion of Epictetus', author: 'Epictetus' },
+  { id: 52, bookName: 'Stoicism and the Art of Happiness', author: 'Donald Robertson' },
+  { id: 53, bookName: 'The Stoic Philosophy of Marcus Aurelius', author: 'Marcus Aurelius' },
+  { id: 54, bookName: 'The Stoic Challenge', author: 'William B. Irvine' },
+  { id: 55, bookName: 'The Obstacle Is the Way', author: 'Ryan Holiday' },
+  { id: 56, bookName: 'A Guide to the Good Life', author: 'William B. Irvine' },
+  { id: 57, bookName: 'The Daily Stoic', author: 'Ryan Holiday' },
+  { id: 58, bookName: 'The Practicing Stoic', author: 'Ward Farnsworth' },
+  { id: 59, bookName: 'Stoicism', author: 'Ryan James' },
+  { id: 60, bookName: 'Stillness Is the Key', author: 'Ryan Holiday' },
+  { id: 61, bookName: 'Ego Is the Enemy', author: 'Ryan Holiday' },
+  { id: 62, bookName: 'How to Think Like a Roman Emperor', author: 'Donald Robertson' },
+  { id: 63, bookName: 'The Stoic Heart', author: 'Beverley Sedlick' },
+  { id: 64, bookName: 'The Little Book of Stoicism', author: 'Jonas Salzgeber' },
+  { id: 65, bookName: 'Stoicism', author: 'Brad Inwood' },
+  { id: 66, bookName: 'The Stoic Life', author: 'Tad Brennan' },
+  { id: 67, bookName: 'Stoicism', author: 'Sharon Nash' },
+  { id: 68, bookName: 'The Daily Stoic Journal', author: 'Ryan Holiday and Stephen Hanselman' },
+  { id: 69, bookName: 'Stoicism', author: 'Erik Smith' },
+  { id: 70, bookName: 'Stoicism', author: 'Jimmie Powell' },
+  { id: 71, bookName: 'Stoicism', author: 'Jordan White' },
+  { id: 72, bookName: 'Stoicism', author: 'Ryan James' },
+  { id: 73, bookName: 'Stoicism', author: 'Gregory Moto' },
+  { id: 74, bookName: 'Stoicism', author: 'Russell Davis' },
+  { id: 75, bookName: 'The Stoic Challenge', author: 'Stephen Hanselman' },
+  { id: 76, bookName: 'Stoicism', author: 'Brian Sandler' },
+  { id: 77, bookName: 'Stoicism', author: 'A.C. Drexel' },
+  { id: 78, bookName: 'Stoicism', author: 'G. S. Marone' },
+  { id: 79, bookName: 'Stoicism', author: 'George Tanner' },
+  { id: 80, bookName: 'Stoicism', author: 'John Nash' },
+  { id: 81, bookName: 'Stoicism', author: 'Bryan Patton' },
+  { id: 82, bookName: 'Stoicism', author: 'Kevin Garnett' },
+  { id: 83, bookName: 'Stoicism', author: 'Max Freeman' },
+  { id: 84, bookName: 'Stoicism', author: 'Chris Tansy' },
+  { id: 85, bookName: 'Stoicism', author: 'Mark T. M. Pillinger' },
+  { id: 86, bookName: 'Stoicism', author: 'Steve Ewing' },
+  { id: 87, bookName: 'Stoicism', author: 'Dylan Campbell' },
+  { id: 88, bookName: 'Stoicism', author: 'Aria P' },
+  { id: 89, bookName: 'Stoicism', author: 'Russell Davis' },
+  { id: 90, bookName: 'Stoicism', author: 'Aria P' },
+  { id: 91, bookName: 'Stoicism', author: 'Kyle Faber' },
+  { id: 92, bookName: 'Stoicism', author: 'Tom Miles' },
+  { id: 93, bookName: 'Stoicism', author: 'Robert Leary' },
+  { id: 94, bookName: 'Stoicism', author: 'Russell Davis' },
+  { id: 95, bookName: 'Stoicism', author: 'Aria P' },
+  { id: 96, bookName: 'Stoicism', author: 'Kyle Faber' },
+  { id: 97, bookName: 'Stoicism', author: 'Tom Miles' },
+  { id: 98, bookName: 'Stoicism', author: 'Robert Leary' },
+  { id: 99, bookName: 'Stoicism', author: 'Aria P' },
+  { id: 100, bookName: 'Stoicism', author: 'Kyle Faber' }
 ];
 
 const quotes = [
