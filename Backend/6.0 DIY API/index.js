@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   res.json(books[randomIndex]);
 // })
 
-// Definimos la ruta para obtener un recurso aleatorio (libro o cita) según el tipo especificado por el usuario
+// Definimos la ruta para obtener un recurso aleatorio (libro, cita o author) según el tipo especificado por el usuario
 app.get("/random/:type", (req, res) => {
   const type = req.params.type; // Obtenemos el tipo de recurso de la consulta
 
@@ -27,7 +27,10 @@ app.get("/random/:type", (req, res) => {
   } else if (type === 'quotes') {
       // Si el usuario solicita una cita, seleccionamos una cita aleatoria del arreglo de citas
       resource = quotes[Math.floor(Math.random() * quotes.length)];
-  } else {
+  } else if (type === 'authors') {
+    // Si el usuario solicita un author, seleccionamos un author aleatorio del arreglo de authors
+    resource = authors[Math.floor(Math.random() * authors.length)];
+}else {
       // Si el usuario no especifica un tipo válido, enviamos un mensaje de error
       return res.status(400).json({ error: 'Por favor, especifica un tipo válido: "book" o "quote"' });
   }
@@ -39,7 +42,7 @@ app.get("/random/:type", (req, res) => {
 
 
 
-//3. GET books by filtering on the book author
+//3. GET books and quotes by filtering on the book author
 app.get("/:type/filter/", (req, res)=> {
   const type = req.params.type;
   const author = req.query.author;
@@ -62,7 +65,7 @@ res.json(resource);
 
 })
 
-  //2. GET a specific book or quote
+  //2. GET a specific book, quote or author
 app.get("/:type/:id", (req, res)=> {
   const type = req.params.type;
   const id = parseInt(req.params.id);
@@ -89,7 +92,7 @@ res.json(resource);
 })
 
 
-//4. POST a new joke
+//4. POST
 app.post("/:type", (req, res) => {
   const type = req.params.type;
 
@@ -116,7 +119,7 @@ app.post("/:type", (req, res) => {
 }
 });
 
-//5. PUT a joke
+//5. PUT
 app.put("/:type/:id", (req, res) =>{
   const type = req.params.type;
   const id = parseInt(req.params.id);
@@ -148,11 +151,11 @@ res.json(replaceQuote);
 }
 })
 
-//6. PATCH a joke
+//6. PATCH a book or a quote
 
-//7. DELETE Specific joke
+//7. DELETE book or quote
 
-//8. DELETE All jokes
+//8. DELETE books or quotes
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
