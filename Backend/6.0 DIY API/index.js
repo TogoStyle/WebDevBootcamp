@@ -96,7 +96,10 @@ res.json(resource);
 app.post("/:type", (req, res) => {
   const type = req.params.type;
 
-  if(type == "book") {
+  if (type === "book") {
+    if (!req.body.bookName || !req.body.author) {
+      return res.status(400).json({ error: 'Missing required parameters: "bookName" or "author"' });
+    }
     const newBook = {
       id: books.length + 1,
       bookName: req.body.bookName,
@@ -105,7 +108,10 @@ app.post("/:type", (req, res) => {
     books.push(newBook);
     console.log(books.slice(-1));
     res.json(newBook);
-  } else if(type == "quote"){
+  } else if (type === "quote") {
+    if (!req.body.quote || !req.body.author) {
+      return res.status(400).json({ error: 'Missing required parameters: "quote" or "author"' });
+    }
     const newQuote = {
       id: quotes.length + 1,
       quote: req.body.quote,
@@ -115,9 +121,10 @@ app.post("/:type", (req, res) => {
     console.log(quotes.slice(-1));
     res.json(newQuote);
   } else {
-    return res.status(400).json({ error: 'Por favor, especifica un tipo válido: "book" o "quote"' });
-}
+    return res.status(400).json({ error: 'Please specify a valid type: "book" or "quote"' });
+  }
 });
+
 
 //5. PUT
 app.put("/:type/:id", (req, res) =>{
@@ -127,6 +134,9 @@ app.put("/:type/:id", (req, res) =>{
   const searchQuote = quotes.findIndex((quote) => quote.id === id);
   
   if (type === 'books') {
+    if (!req.body.bookName || !req.body.author) {
+      return res.status(400).json({ error: 'Missing required parameters: "bookName" or "author"' });
+    }
     const replaceBook = {
     id : id,
     bookName: req.body.bookName,
@@ -137,6 +147,9 @@ books[searchBook] = replaceBook;
 res.json(replaceBook);
 
 } else if (type === 'quotes') {
+  if (!req.body.quote || !req.body.author) {
+    return res.status(400).json({ error: 'Missing required parameters: "quote" or "author"' });
+  }
   const replaceQuote = {
     id: id,
     quote: req.body.quote,
@@ -147,7 +160,7 @@ quotes[searchQuote] = replaceQuote;
 res.json(replaceQuote);
 
 } else {
-    return res.status(400).json({ error: 'Por favor, especifica un tipo válido: "book" o "quote"' });
+    return res.status(400).json({ error: 'Please specify a valid type: "book" or "quote' });
 }
 })
 
