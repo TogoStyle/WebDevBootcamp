@@ -72,7 +72,10 @@ app.get("/:type/:id", (req, res)=> {
     resource = books.find(book => book.id === id);
 } else if (type === 'quotes') {
     resource = quotes.find(quote => quote.id === id);
-} else {
+}else if (type === 'authors') {
+  resource = authors.find(author => author.id === id);
+}
+ else {
     return res.status(400).json({ error: 'Por favor, especifica un tipo válido: "book" o "quote"' });
 }
 
@@ -87,8 +90,63 @@ res.json(resource);
 
 
 //4. POST a new joke
+app.post("/:type", (req, res) => {
+  const type = req.params.type;
+
+  if(type == "book") {
+    const newBook = {
+      id: books.length + 1,
+      bookName: req.body.bookName,
+      author: req.body.author,
+    };
+    books.push(newBook);
+    console.log(books.slice(-1));
+    res.json(newBook);
+  } else if(type == "quote"){
+    const newQuote = {
+      id: quotes.length + 1,
+      quote: req.body.quote,
+      author: req.body.author,
+    };
+    quotes.push(newQuote);
+    console.log(quotes.slice(-1));
+    res.json(newQuote);
+  } else {
+    return res.status(400).json({ error: 'Por favor, especifica un tipo válido: "book" o "quote"' });
+}
+});
 
 //5. PUT a joke
+app.put("/:type/:id", (req, res) =>{
+  const type = req.params.type;
+  const id = parseInt(req.params.id);
+  const searchBook = books.findIndex((book) => book.id === id);
+  const searchQuote = quotes.findIndex((quote) => quote.id === id);
+  
+  if (type === 'books') {
+    const replaceBook = {
+    id : id,
+    bookName: req.body.bookName,
+    author: req.body.author,
+  };
+
+books[searchBook] = replaceBook;
+res.json(replaceBook);
+
+} else if (type === 'quotes') {
+  const replaceQuote = {
+    id: id,
+    quote: req.body.quote,
+    author: req.body.author,
+  };
+
+quotes[searchQuote] = replaceQuote;
+res.json(replaceQuote);
+
+} else {
+    return res.status(400).json({ error: 'Por favor, especifica un tipo válido: "book" o "quote"' });
+}
+})
 
 //6. PATCH a joke
 
@@ -99,6 +157,8 @@ res.json(resource);
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
 });
+
+
 
 const books = [
   { id: 1, bookName: 'Meditations', author: 'Marcus Aurelius' },
@@ -305,4 +365,50 @@ const quotes = [
   { id: 99, quote: 'We suffer more often in imagination than in reality.', author: 'Seneca' },
   { id: 100, quote: 'We should always allow some time to elapse, for time discloses the truth.', author: 'Seneca' }
 ];
+// Create an array to store author objects
+const authors = [];
+// Initialize a counter for assigning author IDs
+let authorIdCounter = 1;
 
+// Function to find an author in the authors array
+const findAuthorIndex = (authorName) => {
+  return authors.findIndex(author => author.name === authorName);
+};
+
+// Add books and quotes to author objects and store them in the array
+books.forEach(book => {
+  // Find the index of the author in the authors array
+  const authorIndex = findAuthorIndex(book.author);
+  // If the author is not found, create a new author object and add it to the authors array
+  if (authorIndex === -1) {
+    const newAuthor = {
+      id: authorIdCounter++,
+      name: book.author,
+      books: [book],
+      quotes: []
+    };
+    authors.push(newAuthor);
+  } else {
+    // If the author is found, add the book to the author's books array
+    authors[authorIndex].books.push(book);
+  }
+});
+
+// Iterate through each quote
+quotes.forEach(quote => {
+  // Find the index of the author in the authors array
+  const authorIndex = findAuthorIndex(quote.author);
+  // If the author is not found, create a new author object and add it to the authors array
+  if (authorIndex === -1) {
+    const newAuthor = {
+      id: authorIdCounter++,
+      name: quote.author,
+      books: [],
+      quotes: [quote]
+    };
+    authors.push(newAuthor);
+  } else {
+    // If the author is found, add the quote to the author's quotes array
+    authors[authorIndex].quotes.push(quote);
+  }
+});
