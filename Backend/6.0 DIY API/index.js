@@ -165,10 +165,47 @@ res.json(replaceQuote);
 })
 
 //6. PATCH a book or a quote
+app.patch("/:type/:id", (req, res)=> {
+  const type = req.params.type;
+  const id = parseInt(req.params.id);
+  const searchBook = books.find((book) => book.id === id);
+  const searchQuote = quotes.find((quote) => quote.id === id);
+
+  if (type === 'books') {
+    if (!req.body.bookName && !req.body.author) {
+      return res.status(400).json({ error: 'Missing required parameters: "bookName" or "author"' });
+    }
+    const patchBook = {
+    id : id,
+    bookName: req.body.bookName || searchBook.bookName,
+    author: req.body.author || searchBook.author,
+  };
+const searchIndex = books.findIndex((book)=> book.id === id);
+books[searchIndex] = patchBook;
+res.json(patchBook);
+
+} else if (type === 'quotes') {
+  if (!req.body.quote && !req.body.author) {
+    return res.status(400).json({ error: 'Missing required parameters: "quote" or "author"' });
+  }
+  const patchQuote = {
+    id: id,
+    quote: req.body.quote || searchQuote.quote,
+    author: req.body.author || searchQuote.author,
+  };
+
+  const searchIndex = quotes.findIndex((quote)=> quote.id === id);
+  quotes[searchIndex] = patchQuote;
+res.json(patchQuote);
+
+} else {
+    return res.status(400).json({ error: 'Please specify a valid type: "book" or "quote' });
+}
+})
 
 //7. DELETE book or quote
 
-//8. DELETE books or quotes
+
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
