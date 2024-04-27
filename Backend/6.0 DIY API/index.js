@@ -204,7 +204,46 @@ res.json(patchQuote);
 })
 
 //7. DELETE book or quote
+app.delete("/:type/:id", (req,res) => {
+  const type = req.params.type;
+  const id = parseInt(req.params.id);
+  let resourceIndex;
 
+  if (type === 'books') {
+    resourceIndex = books.findIndex((book) => book.id === id);
+    if(resourceIndex > -1){
+      books.splice(resourceIndex, 1);
+      res.sendStatus(200);
+    } else{
+      res
+      .status(404)
+      .json({error: 'Book not found'});
+    
+    }
+} else if (type === 'quotes') {
+    resourceIndex = quotes.findIndex((quote) => quote.id === id);
+    if(resourceIndex > -1){
+      quotes.splice(resourceIndex, 1);
+      res.sendStatus(200);
+    } else{
+      res
+      .status(404)
+      .json({error: 'Quote not found'});
+    
+    }
+} else {
+    return res.status(400).json({ error: 'Por favor, especifica un tipo válido: "book" o "quote"' });
+}
+
+// Verificamos si se encontró el recurso
+if (!resource) {
+  return res.status(404).json({ error: `No se encontró ${type.slice(0, -1)} con el ID ${id}` });
+}
+
+res.json(resource);
+
+}
+)
 
 
 app.listen(port, () => {
