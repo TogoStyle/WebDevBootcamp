@@ -1,8 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import { MiPrimerEstado } from './components/MiPrimerEstado';
+import { EjercicioComponent } from './components/EjercicioComponent';
 
 function App() {
+
+  const yearActual = new Date().getFullYear();
+  
   return (
     <div className="App">
       <header className="App-header">
@@ -12,6 +16,7 @@ function App() {
        <h1>El estado en React - Hook State</h1>
 
        <MiPrimerEstado />
+       <EjercicioComponent year={yearActual}/>
       </header>
     </div>
   );
