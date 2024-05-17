@@ -1,8 +1,9 @@
 // Import the React module and the useState function from the "react" library
 import React, { useState } from "react";
+import { SaveStorage } from "../helpers/SaveStorage";
 
 // Define a function component called "Crear"
-export const Crear = () => {
+export const Crear = ({ setListState }) => {
   // Declare a constant called "componentTittle" and assign it the value "Add Film"
   const componentTittle = "Add Film";
 
@@ -11,6 +12,9 @@ export const Crear = () => {
     tittle: "",
     description: "",
   });
+
+  // Define a state to manage error messages
+  const [error, setError] = useState("");
 
   // Extract the properties "tittle" and "description" from the state "movieState" using destructuring
   const { tittle, description } = movieState;
@@ -29,6 +33,12 @@ export const Crear = () => {
     // Get the value of the "description" field from the form
     let description = target.description.value;
 
+    // Check if the title is empty and set an error message if it is
+    if (tittle.trim() === "") {
+      setError("Title is required.");
+      return;
+    }
+
     // Create a "movie" object with a generated ID and the values obtained from the form
     let movie = {
       id: new Date().getTime(),
@@ -39,29 +49,20 @@ export const Crear = () => {
     // Set the state "movieState" to the "movie" object
     setMovieState(movie);
 
-    // Call the "saveStorage" function with the "movie" object as argument
-    saveStorage(movie);
-  };
-
-  // Define a function called "saveStorage" taking a "movie" object as argument
-  const saveStorage = (movie) => {
-    // Get the elements that are not in the localStorage
-    let elements = JSON.parse(localStorage.getItem("movies"));
-
-    // Check if it's an array
-    if (Array.isArray(elements)) {
-      // Add the new element to the array
-      elements.push(movie);
-    } else {
-      // Create an array with the new movie
-      elements = [movie];
+    // Refresh the state of the main list
+   // Ensure that elements is properly initialized
+   setListState((elements) => {
+    if (!Array.isArray(elements)) {
+      elements = [];
     }
+    return [...elements, movie];
+  });
 
-    // Save in the localStorage
-    localStorage.setItem("movies", JSON.stringify([movie]));
+    // Call the "saveStorage" function with the "movie" object as argument
+    SaveStorage("movies", movie);
 
-    // Return the "movie" object
-    return movie;
+    // Clear the error message
+    setError("");
   };
 
   // Return the JSX code representing the component
@@ -75,10 +76,13 @@ export const Crear = () => {
         <strong>{tittle && description && movieState.tittle}</strong>
       </div>
 
+      {/* Display the error message if present */}
+      {error && <div className="error">{error}</div>}
+
       {/* Form for adding a new movie */}
       <form onSubmit={getFormData}>
         {/* Input field for entering the movie title */}
-        <input type="text" id="title" placeholder="Tittle" name="tittle" />
+        <input type="text" id="title" placeholder="Title" name="tittle" />
         
         {/* Textarea for entering the movie description */}
         <textarea

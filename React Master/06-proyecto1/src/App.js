@@ -1,49 +1,54 @@
+import { useEffect, useState } from "react";
 import { Buscador } from "./components/Buscador";
 import { Crear } from "./components/Crear";
 import { Listado } from "./components/Listado";
 
-
 function App() {
+  const [listState, setListState] = useState([]);
+
+  /// Use useEffect to populate listState from localStorage when the component mounts
+  useEffect(() => {
+    const movies = JSON.parse(localStorage.getItem("movies")) || [];
+    setListState(movies);
+  }, []);
+
   return (
-    
     <div className="layout">
-        <header className="header">
-            <img src="logo.png" alt="logo"/>
-            
-            <h1>CornFlix</h1>
-        </header>
+      <header className="header">
+        <img src="logo.png" alt="logo" />
 
-        <nav className="nav">
-            <ul>
-                <li><a href="#/">Home</a></li>
-                <li><a href="#/">Movies</a></li>
-                <li><a href="#/">Blog</a></li>
-                <li><a href="#/">Contact Us</a></li>
-            </ul>
-        </nav>
+        <h1>MyCornFlix</h1>
+      </header>
 
-        <section id="content" className="content">
+      <nav className="nav">
+        <ul>
+          <li>
+            <a href="#/">Home</a>
+          </li>
+          <li>
+            <a href="#/">Movies</a>
+          </li>
+          <li>
+            <a href="#/">Blog</a>
+          </li>
+          <li>
+            <a href="#/">Contact Us</a>
+          </li>
+        </ul>
+      </nav>
 
-            <Listado />
-            
+      <section id="content" className="content">
+        <Listado listState={listState} setListState={setListState} />
+      </section>
 
-        </section>
+      <aside className="lateral">
+        <Buscador />
 
-        <aside className="lateral">
-            
-            <Buscador />
+        <Crear setListState={setListState} />
+      </aside>
 
-            <Crear />
-        </aside>
-
-
-        <footer className="footer">
-            &copy; Antonio Vieira Rubio
-        </footer>
-
+      <footer className="footer">&copy; Antonio Vieira Rubio</footer>
     </div>
-
-    
   );
 }
 
