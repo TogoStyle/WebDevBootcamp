@@ -1,96 +1,98 @@
-// Import the React module and the useState function from the "react" library
+// Import necessary dependencies from React and custom helper functions
 import React, { useState } from "react";
 import { SaveStorage } from "../helpers/SaveStorage";
 
-// Define a function component called "Crear"
+// Define a functional component called "Crear" which takes a prop "setListState"
 export const Crear = ({ setListState }) => {
-  // Declare a constant called "componentTittle" and assign it the value "Add Film"
-  const componentTittle = "Add Film";
+  // Define a constant variable for the component title
+  const componentTitle = "Add Film";
 
-  // Define a state called "movieState" using the useState hook, initialized with an object having properties "tittle" and "description", both with empty initial values
+  // Define state variables using the useState hook to manage movie data and error messages
   const [movieState, setMovieState] = useState({
-    tittle: "",
+    title: "",
     description: "",
   });
-
-  // Define a state to manage error messages
   const [error, setError] = useState("");
 
-  // Extract the properties "tittle" and "description" from the state "movieState" using destructuring
-  const { tittle, description } = movieState;
+  // Destructure movieState object to access title and description
+  const { title, description } = movieState;
 
-  // Define a function called "getFormData" taking an event as argument
+  // Define a function to handle form submission
   const getFormData = (e) => {
-    // Prevents the default behavior of the form when submitted
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission behavior
 
-    // Get the element of the form that triggered the event
+    // Extract form input values
     let target = e.target;
-
-    // Get the value of the "tittle" field from the form
-    let tittle = target.tittle.value;
-
-    // Get the value of the "description" field from the form
+    let title = target.title.value;
     let description = target.description.value;
 
-    // Check if the title is empty and set an error message if it is
-    if (tittle.trim() === "") {
-      setError("Title is required.");
+    // Validate title input
+    if (title.trim() === "") {
+      setError("Title is required."); // Set error message if title is empty
       return;
     }
 
-    // Create a "movie" object with a generated ID and the values obtained from the form
+    // Create a new movie object with a unique ID
     let movie = {
       id: new Date().getTime(),
-      tittle,
+      title,
       description,
     };
 
-    // Set the state "movieState" to the "movie" object
-    setMovieState(movie);
+    // Update the state and localStorage with the new movie
+    setListState((elements) => {
+      const updatedElements = elements ? [...elements, movie] : [movie]; // Add the new movie to the existing list of movies
+      SaveStorage("movies", updatedElements); // Call the SaveStorage function to save the updated list to localStorage
+      return updatedElements; // Return the updated list of movies
+    });
 
-    // Refresh the state of the main list
-   // Ensure that elements is properly initialized
-   setListState((elements) => {
-    if (!Array.isArray(elements)) {
-      elements = [];
-    }
-    return [...elements, movie];
-  });
-
-    // Call the "saveStorage" function with the "movie" object as argument
-    SaveStorage("movies", movie);
-
-    // Clear the error message
-    setError("");
+    // Reset the movieState and error variables after form submission
+    setMovieState({
+      title: "",
+      description: "",
+    });
+    setError(""); // Clear any existing error message
   };
 
-  // Return the JSX code representing the component
+  // Render the component UI
   return (
     <div className="add">
-      {/* Display the title */}
-      <h3 className="title">{componentTittle}</h3>
-      
-      {/* Display the title and description if both are present */}
+      {/* Display the component title */}
+      <h3 className="title">{componentTitle}</h3>
+
+      {/* Display the title if both title and description are present */}
       <div className="title-container">
-        <strong>{tittle && description && movieState.tittle}</strong>
+        <strong>{title && description && movieState.title}</strong>
       </div>
 
-      {/* Display the error message if present */}
+      {/* Display error message if present */}
       {error && <div className="error">{error}</div>}
 
       {/* Form for adding a new movie */}
       <form onSubmit={getFormData}>
         {/* Input field for entering the movie title */}
-        <input type="text" id="title" placeholder="Title" name="tittle" />
-        
+        <input
+          type="text"
+          id="title"
+          placeholder="Title"
+          name="title"
+          value={title}
+          onChange={(e) =>
+            setMovieState({ ...movieState, title: e.target.value })
+          }
+        />
+
         {/* Textarea for entering the movie description */}
         <textarea
           id="description"
           placeholder="Description"
           name="description"
+          value={description}
+          onChange={(e) =>
+            setMovieState({ ...movieState, description: e.target.value })
+          }
         ></textarea>
-        
+
         {/* Submit button for saving the movie */}
         <input type="submit" id="save" value="Save" />
       </form>
