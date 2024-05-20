@@ -13,11 +13,22 @@ body {
   height: auto;
   display: grid;
   grid-template-areas:
-      "header header header header"
-      "nav nav nav nav"
-      "content content content lateral"
-      "footer footer footer footer";
+    "header header header header"
+    "nav nav nav nav"
+    "content content content lateral"
+    "footer footer footer footer";
   grid-template-rows: 100px 70px auto 70px;
+  grid-template-columns: 1fr 1fr 1fr 300px; /* Ajusta esto según el tamaño del aside */
+}
+
+/* Ocultar el aside cuando se aplica la clase no-aside */
+.layout.no-aside {
+  grid-template-areas:
+    "header header header header"
+    "nav nav nav nav"
+    "content content content content"
+    "footer footer footer footer";
+  grid-template-columns: 1fr 1fr 1fr 1fr; /* Asegura que el content ocupe todo el espacio */
 }
 
 /* ESTILOS CABECERA */
@@ -41,7 +52,7 @@ body {
 
 .nav {
   grid-area: nav;
-  background: linear-gradient(90deg, #03228f 10% , #E50914 100%); /* Azul degradado */
+  background: linear-gradient(90deg, #03228f 10%, #E50914 100%); /* Azul degradado */
 }
 
 .nav > ul {
@@ -78,10 +89,9 @@ body {
   background: #1a1a1a; /* Fondo secundario en gris oscuro */
   display: flex;
   flex-flow: row wrap;
-  flex-grow: 1; /* Hacer que el contenido ocupe todo el espacio disponible */
   justify-content: flex-start;
   align-items: flex-start;
-  overflow: auto;
+  flex-grow: 1; /* Hacer que el contenido ocupe todo el espacio disponible */
 }
 
 .peli-item {
@@ -191,7 +201,6 @@ input[type="button"]:hover {
   padding-left: 25px;
 }
 
-
 @media (max-width: 1085px) {
   .content {
       flex-flow: column wrap;
@@ -204,10 +213,10 @@ input[type="button"]:hover {
   }
 }
 
-.done{
- width: 30px;
- height: 30px;
- margin-top: 20px;
+.done {
+  width: 30px;
+  height: 30px;
+  margin-top: 20px;
 }
 
 .title-container {
@@ -215,30 +224,28 @@ input[type="button"]:hover {
   align-content: center; /* Centra verticalmente los elementos */
 }
 
-.no-movies{
+.no-movies {
   color: white;
   margin-left: 30%;
   margin-right: 30%;
 }
 
-#edit_movie{
+#edit_movie {
   display: block;
 }
 
-.editar{
+.editar {
   margin: 4px;
 }
 
-.cancelar{
+.cancelar {
   margin: 4px;
 }
 
-.contact{
+.contact {
   color: white;
 }
 
-.lateral_hide{
-  visibility: hidden;
-  width: 0px;
-
+.lateral_hide {
+  display: none; /* Ocultar completamente el aside */
 }

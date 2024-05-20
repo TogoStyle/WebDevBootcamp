@@ -7,7 +7,7 @@ import { RouterPrincipal } from "./routers/RouterPrincipal";
 function App() {
   const [listState, setListState] = useState([]);
 
-  /// Use useEffect to populate listState from localStorage when the component mounts
+  // Use useEffect to populate listState from localStorage when the component mounts
   useEffect(() => {
     const movies = JSON.parse(localStorage.getItem("movies")) || [];
     setListState(movies);
@@ -15,12 +15,12 @@ function App() {
 
   // Hook to get the current location
   const location = useLocation();
+  const showAside = location.pathname === "/";
 
   return (
-    <div className="layout">
+    <div className={`layout ${showAside ? '' : 'no-aside'}`}>
       <header className="header">
         <img src="logo.png" alt="logo" />
-
         <h1>MyCornFlix</h1>
       </header>
 
@@ -37,23 +37,12 @@ function App() {
 
       <section id="content" className="content">
         <RouterPrincipal listState={listState} setListState={setListState} />
-
-        {/* <Listado listState={listState} setListState={setListState} /> */}
       </section>
 
-      {location.pathname === "/" && (
-        <aside className="lateral">
-          <Buscador listState={listState} setListState={setListState} />
-          <Crear setListState={setListState} />
-        </aside>
-      )}
-
-      {location.pathname === "/Contacto" && (
-        <aside className="lateral_hide">
-          <Buscador listState={listState} setListState={setListState} />
-          <Crear setListState={setListState} />
-        </aside>
-      )}
+      <aside className={`lateral ${showAside ? '' : 'lateral_hide'}`}>
+        <Buscador listState={listState} setListState={setListState} />
+        <Crear setListState={setListState} />
+      </aside>
 
       <footer className="footer">&copy; Antonio Vieira Rubio</footer>
     </div>
