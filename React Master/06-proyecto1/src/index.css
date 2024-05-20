@@ -78,9 +78,10 @@ body {
   background: #1a1a1a; /* Fondo secundario en gris oscuro */
   display: flex;
   flex-flow: row wrap;
+  flex-grow: 1; /* Hacer que el contenido ocupe todo el espacio disponible */
   justify-content: flex-start;
   align-items: flex-start;
-  flex-grow: 1;
+  overflow: auto;
 }
 
 .peli-item {
@@ -230,4 +231,14 @@ input[type="button"]:hover {
 
 .cancelar{
   margin: 4px;
+}
+
+.contact{
+  color: white;
+}
+
+.lateral_hide{
+  visibility: hidden;
+  width: 0px;
+
 }

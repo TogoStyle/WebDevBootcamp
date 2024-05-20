@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Buscador } from "./components/Buscador";
 import { Crear } from "./components/Crear";
-import { Listado } from "./components/Listado";
+import { BrowserRouter, NavLink, useLocation } from "react-router-dom";
+import { RouterPrincipal } from "./routers/RouterPrincipal";
 
 function App() {
   const [listState, setListState] = useState([]);
@@ -11,6 +12,9 @@ function App() {
     const movies = JSON.parse(localStorage.getItem("movies")) || [];
     setListState(movies);
   }, []);
+
+  // Hook to get the current location
+  const location = useLocation();
 
   return (
     <div className="layout">
@@ -23,29 +27,33 @@ function App() {
       <nav className="nav">
         <ul>
           <li>
-            <a href="#/">Home</a>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <a href="#/">Movies</a>
-          </li>
-          <li>
-            <a href="#/">Blog</a>
-          </li>
-          <li>
-            <a href="#/">Contact Us</a>
+            <NavLink to="/Contacto">Contact Us</NavLink>
           </li>
         </ul>
       </nav>
 
       <section id="content" className="content">
-        <Listado listState={listState} setListState={setListState} />
+        <RouterPrincipal listState={listState} setListState={setListState} />
+
+        {/* <Listado listState={listState} setListState={setListState} /> */}
       </section>
 
-      <aside className="lateral">
-        <Buscador listState={listState} setListState={setListState}/>
+      {location.pathname === "/" && (
+        <aside className="lateral">
+          <Buscador listState={listState} setListState={setListState} />
+          <Crear setListState={setListState} />
+        </aside>
+      )}
 
-        <Crear setListState={setListState} />
-      </aside>
+      {location.pathname === "/Contacto" && (
+        <aside className="lateral_hide">
+          <Buscador listState={listState} setListState={setListState} />
+          <Crear setListState={setListState} />
+        </aside>
+      )}
 
       <footer className="footer">&copy; Antonio Vieira Rubio</footer>
     </div>
