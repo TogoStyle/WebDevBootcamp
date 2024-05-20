@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Editar } from "./Editar";
 
 // Define a functional component called "Listado" which takes "listState" and "setListState" as props
 export const Listado = ({ listState, setListState }) => {
@@ -6,6 +7,8 @@ export const Listado = ({ listState, setListState }) => {
   useEffect(() => {
     getMovies(); // Call the getMovies function to retrieve movies from localStorage
   }, []);
+
+  const [editar, setEditar] = useState(0);
 
   // Function to retrieve movies from localStorage and update listState
   const getMovies = () => {
@@ -42,9 +45,18 @@ export const Listado = ({ listState, setListState }) => {
             <p className="description">{movie.description}</p>
 
             {/* Buttons for editing and deleting the movie */}
-            <button className="edit">Edit</button>
+            <button className="edit" onClick={() => setEditar(movie.id)}>Edit</button>
             {/* Button to delete the movie, onClick event calls deleteMovie function with movie ID */}
             <button className="delete" onClick={() => deleteMovie(movie.id)}>Delete</button>
+
+
+          {/* Aparece formulario para editar */}
+          {editar == movie.id && (
+            <Editar movie={movie}
+                    getMovies = {getMovies}
+                    setEditar = {setEditar}
+                    setListState = {setListState}/>
+          )}
           </article>
         );
       })

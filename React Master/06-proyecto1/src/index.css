@@ -219,3 +219,15 @@ input[type="button"]:hover {
   margin-left: 30%;
   margin-right: 30%;
 }
+
+#edit_movie{
+  display: block;
+}
+
+.editar{
+  margin: 4px;
+}
+
+.cancelar{
+  margin: 4px;
+}
