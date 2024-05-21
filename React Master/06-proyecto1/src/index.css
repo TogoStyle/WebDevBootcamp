@@ -244,6 +244,11 @@ input[type="button"]:hover {
 
 .contact {
   color: white;
+  justify-content: center;
+  align-items: center;
+  display: flex; /* Usamos flexbox para centrar */
+  flex-direction: column; /* Centra verticalmente */
+  padding: 150px;
 }
 
 .lateral_hide {

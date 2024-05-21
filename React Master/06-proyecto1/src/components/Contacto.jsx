@@ -2,10 +2,10 @@ import React from "react";
 
 export const Contacto = () => {
   return (
-    <div>
-      <h1 className="contact">Antonio Vieira Rubio</h1>
+    <div className="contact">
+      <h1 >Antonio Vieira Rubio</h1>
 
-      <p className="contact">Esta es la pagina de contacto</p>
+      <p>tvr9869@gmail.com</p>
     </div>
   );
 };
